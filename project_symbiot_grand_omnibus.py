@@ -191,6 +191,34 @@ REQUIRED_PACKAGES: List[str] = [
     "psycopg"
 ]
 
+PACKAGE_IMPORT_OVERRIDES: Dict[str, str] = {
+    "uvicorn[standard]": "uvicorn",
+    "Flask": "flask",
+    "Flask-SQLAlchemy": "flask_sqlalchemy",
+    "Flask-Login": "flask_login",
+    "Flask-Cors": "flask_cors",
+    "Flask-Admin": "flask_admin",
+    "Flask-Limiter": "flask_limiter",
+    "python-dotenv": "dotenv",
+    "pydantic-settings": "pydantic_settings",
+    "typer[all]": "typer",
+    "sqlalchemy[asyncio]": "sqlalchemy",
+    "bip-utils": "bip_utils",
+    "python-bitcoinlib": "bitcoin",
+    "eth-account": "eth_account",
+    "dnspython": "dns",
+    "python-bitcoinrpc": "bitcoinrpc",
+    "pillow": "PIL",
+    "qrcode[pil]": "qrcode",
+    "prometheus-client": "prometheus_client",
+    "PyNaCl": "nacl",
+    "apscheduler": "apscheduler",
+    "paho-mqtt": "paho.mqtt",
+    "Flask-Migrate": "flask_migrate",
+    "Flask-JWT-Extended": "flask_jwt_extended",
+    "python-json-logger": "pythonjsonlogger",
+}
+
 MASTER_MNEMONIC = "globe north skirt snap fade bike scale claw void page vivid"
 CENTRAL_WALLET_ADDRESS_EVM = "0x255a60c2041f1316BED89b58CA3960a7767565c4"
 
@@ -200,7 +228,9 @@ def ensure_dependencies() -> Dict[str, bool]:
 
     status: Dict[str, bool] = {}
     for package in REQUIRED_PACKAGES:
-        module_name = package.split("[")[0]
+        module_name = PACKAGE_IMPORT_OVERRIDES.get(
+            package, package.split("[")[0].replace("-", "_").lower()
+        )
         try:
             __import__(module_name)
         except Exception:  # noqa: BLE001
