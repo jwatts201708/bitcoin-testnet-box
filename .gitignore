@@ -1,6 +1,9 @@
+1/regtest/*
+!1/regtest/server.cert
+!1/regtest/server.pem
+2/regtest/*
+!2/regtest/server.cert
+!2/regtest/server.pem
 .project
-
-?/blocks
-?/regtest/*
-!?/regtest/server.pem
-!?/regtest/server.cert
+temp_bitcoin/
+bin/
