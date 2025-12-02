@@ -4,3 +4,5 @@
 ?/regtest/*
 !?/regtest/server.pem
 !?/regtest/server.cert
+__pycache__/
+requirements.txt
